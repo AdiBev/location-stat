@@ -5,19 +5,22 @@ export type InputAddressFormProps = {
   value: string
   setValue: (value: string) => void
   submitButtonTitle: string
+  onSubmit: React.FormEventHandler
 }
 
 export const InputAddressForm: React.FunctionComponent<
   InputAddressFormProps
-> = ({ setValue, submitButtonTitle, value }) => {
+> = ({ setValue, submitButtonTitle, value, onSubmit }) => {
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value)
+    setValue(`${e.target.value.toUpperCase()}`)
   }
 
   return (
-    <FormControl isRequired>
-      <Input type="text" value={value} onChange={onInputChange} />
-      <Button type="submit">{submitButtonTitle}</Button>
-    </FormControl>
+    <form onSubmit={onSubmit}>
+      <FormControl isRequired>
+        <Input type="text" value={value} onChange={onInputChange} />
+        <Button type="submit">{submitButtonTitle}</Button>
+      </FormControl>
+    </form>
   )
 }
