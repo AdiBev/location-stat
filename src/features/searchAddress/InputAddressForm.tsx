@@ -1,18 +1,23 @@
 import * as React from "react"
 import { Button, FormControl, Input } from "@chakra-ui/react"
-import { useLocationDetailContext } from "../../context/location-detail-context"
 
-export const InputAddressForm: React.FunctionComponent = () => {
-  const { address, setAddress } = useLocationDetailContext()
+export type InputAddressFormProps = {
+  value: string
+  setValue: (value: string) => void
+  submitButtonTitle: string
+}
 
+export const InputAddressForm: React.FunctionComponent<
+  InputAddressFormProps
+> = ({ setValue, submitButtonTitle, value }) => {
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAddress(e.target.value)
+    setValue(e.target.value)
   }
 
   return (
     <FormControl isRequired>
-      <Input type="text" value={address} onChange={onInputChange} />
-      <Button>Check crime stats</Button>
+      <Input type="text" value={value} onChange={onInputChange} />
+      <Button type="submit">{submitButtonTitle}</Button>
     </FormControl>
   )
 }
