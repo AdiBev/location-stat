@@ -6,13 +6,15 @@ import {
 import { z } from "zod"
 import { GEOCODING_API_URL } from ".."
 
-const AddressDetailResultSchema = z.object({
-  boundingbox: z.array(z.number()),
-  lat: z.number(),
-  lon: z.number(),
-  type: z.string(),
-  display_name: z.string(),
-})
+const AddressDetailResultSchema = z.array(
+  z.object({
+    boundingbox: z.array(z.string()),
+    lat: z.string(),
+    lon: z.string(),
+    type: z.string(),
+    display_name: z.string(),
+  })
+)
 
 type AddressDetailResult = z.infer<typeof AddressDetailResultSchema>
 
