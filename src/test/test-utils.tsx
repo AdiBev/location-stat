@@ -1,31 +1,31 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import {
-  LocationDetailContext,
-  LocationDetailContextResult,
-} from "../context/location-detail-context"
 import { render } from "@testing-library/react"
 
-type WrappedRenderParams = {
-  locationDetailContextValue: LocationDetailContextResult
-  queryClient?: QueryClient
+type WrappedRenderOptionalParams = {
+  /**
+   * Pass a React Component as the wrapper option to have it rendered around the inner element.
+   * This is most useful for creating reusable custom render functions for common data providers.
+   */
+  wrapper: React.FunctionComponent<{ children: React.ReactNode }>
+  /**
+   * Pass a custom queryClient when required
+   */
+  queryClient: QueryClient
 }
 
 const defaultQueryClient = new QueryClient()
 
 export const wrappedRender = (
   ui: React.ReactElement,
-  options: WrappedRenderParams
+  options?: WrappedRenderOptionalParams
 ) => {
-  const { queryClient, locationDetailContextValue } = options
-
   return render(
     <ChakraProvider>
-      <QueryClientProvider client={queryClient ?? defaultQueryClient}>
-        <LocationDetailContext.Provider value={locationDetailContextValue}>
-          {ui}
-        </LocationDetailContext.Provider>
+      <QueryClientProvider client={options?.queryClient ?? defaultQueryClient}>
+        {ui}
       </QueryClientProvider>
-    </ChakraProvider>
+    </ChakraProvider>,
+    { wrapper: options?.wrapper }
   )
 }
