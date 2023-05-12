@@ -1,9 +1,10 @@
+import { SearchAddress } from "./features/searchAddress/SearchAddress"
 import { AppProvider } from "./provider/AppProvider"
 
 function App() {
   return (
     <AppProvider>
-      <div>Hello</div>
+      <SearchAddress />
     </AppProvider>
   )
 }
