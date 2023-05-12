@@ -7,6 +7,7 @@ export type LocationDetailContextResult = {
   setAddress: (address: string) => void
   step: ApplicationStep
   setStep: (step: ApplicationStep) => void
+  handleAddressSubmit: React.FormEventHandler
 }
 
 export const LocationDetailContext =
